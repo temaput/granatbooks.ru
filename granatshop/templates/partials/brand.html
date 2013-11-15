@@ -1,0 +1,3 @@
+{% load staticfiles %}
+{% load url from future %}
+<h1 class="span7"><a href="{% url 'promotions:home' %}">{% block brand_title %}<img src="{% static "granat/img/logo.png" %}" alt="{{ shop_name }}"></a>{% endblock %}</h1>
