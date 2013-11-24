@@ -4,7 +4,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans "Payment details" %} | {{ block.super }}
+    Параметры платежа | {{ block.super }}
 {% endblock %}
 
 {% block checkout_nav %}
@@ -18,19 +18,13 @@
 
 {% block payment_details %}
     <div class="sub-header">
-        <h2>{% trans "Enter payment details" %}</h2>
+        <h2>Параметры платежа</h2>
     </div>
 
 	{% block payment_details_content %}
-		<p>{% trans "This page needs implementing within your project.  You may want to use on one of Oscar's payment gateway libraries:" %}</p>
-		<ul>
-			<li><a href="https://github.com/tangentlabs/django-oscar-paypal">django-oscar-paypal</a></li>
-			<li><a href="https://github.com/tangentlabs/django-oscar-datacash">django-oscar-datacash</a></li>
-			<li><a href="https://github.com/tangentlabs/django-oscar-gocardless">django-oscar-gocardless</a></li>
-			<li><a href="https://github.com/tangentlabs/django-oscar-paymentexpress">django-oscar-paymentexpress</a></li>
-			<li><a href="https://github.com/tangentlabs/django-oscar-accounts">django-oscar-accounts</a></li>
-		</ul>
+                <p>Выбранный способ платежа: <strong>{{ payment_method }}</strong></p>
 		<a href="{% url 'checkout:preview' %}" class="btn btn-primary btn-large">{% trans "Continue" %}</a>
+                <a href="{% url 'checkout:payment-method' %}" class="btn">Изменить способ оплаты</a>
 	{% endblock payment_details_content %}
 
 {% endblock payment_details %}

@@ -2418,7 +2418,7 @@ msgstr ""
 #: i18n/oscar/apps/catalogue/views.py:187
 #: i18n/oscar/templates/oscar/catalogue/browse.html:25
 msgid "All products"
-msgstr "Все товары"
+msgstr "Все книги"
 
 #: i18n/oscar/apps/catalogue/views.py:189
 #, python-format
@@ -2478,13 +2478,12 @@ msgid "Product reviews"
 msgstr "Отзывы о товаре"
 
 #: i18n/oscar/apps/catalogue/reviews/abstract_models.py:86
-#, fuzzy
 msgid "Anonymous reviews must include a name and an email"
-msgstr "Анонимный отзыв должен содержать имя и емейл"
+msgstr "Анонимный отзыв должен содержать имя и email"
 
 #: i18n/oscar/apps/catalogue/reviews/abstract_models.py:138
 msgid "anonymous"
-msgstr ""
+msgstr "анонимно"
 
 #: i18n/oscar/apps/catalogue/reviews/abstract_models.py:180
 msgid "Up"
@@ -2599,6 +2598,8 @@ msgid ""
 "A problem occurred while processing payment for this order - no payment has "
 "been taken.  Please contact customer services if this problem persists"
 msgstr ""
+"Возникла проблема при оформлении платежа - платеж не может быть принят. "
+"Пожалуйста, свяжитесь с нами по телефону."
 
 #: i18n/oscar/apps/customer/abstract_models.py:55
 #, fuzzy
@@ -5833,7 +5834,7 @@ msgstr "Написать отзыв"
 
 #: i18n/oscar/templates/oscar/catalogue/detail.html:114
 msgid "Product Description"
-msgstr "Описание товара"
+msgstr "О книге"
 
 #: i18n/oscar/templates/oscar/catalogue/detail.html:122
 msgid "Product Information"
@@ -5858,17 +5859,15 @@ msgstr "Просмотреть все отзывы"
 
 #: i18n/oscar/templates/oscar/catalogue/detail.html:171
 msgid "Customer Reviews"
-msgstr "Отзывы Клиентов"
+msgstr "Отзывы читателей"
 
 #: i18n/oscar/templates/oscar/catalogue/detail.html:176
-#, fuzzy
 msgid "This product does not have any reviews yet"
-msgstr "Этот товар недоступен для заказа"
+msgstr "Пока нет ни одного отзыва об этом издании"
 
 #: i18n/oscar/templates/oscar/catalogue/detail.html:177
-#, fuzzy
 msgid "be the first to write one"
-msgstr "Станьте первым, оставившем отзыв о товаре "
+msgstr "написать первый отзыв"
 
 #: i18n/oscar/templates/oscar/catalogue/detail.html:194
 msgid "Related items"
@@ -5881,7 +5880,7 @@ msgstr ""
 #: i18n/oscar/templates/oscar/catalogue/partials/add_to_basket_form.html:12
 #: i18n/oscar/templates/oscar/catalogue/partials/add_to_basket_form_compact.html:12
 msgid "Add to basket"
-msgstr "Добавить в корзину"
+msgstr "В корзину"
 
 #: i18n/oscar/templates/oscar/catalogue/partials/add_to_basket_form.html:21
 msgid "You have an active stock alert for this product."
@@ -6022,16 +6021,15 @@ msgstr "Отзывы Клиентов"
 
 #: i18n/oscar/templates/oscar/catalogue/reviews/review_form.html:8
 msgid "Leave a product review"
-msgstr ""
+msgstr "Оставьте свой отзыв"
 
 #: i18n/oscar/templates/oscar/catalogue/reviews/review_form.html:12
 msgid "Submit"
-msgstr ""
+msgstr "Отправить"
 
 #: i18n/oscar/templates/oscar/catalogue/reviews/review_list.html:45
-#, fuzzy
 msgid "Customer reviews"
-msgstr "Отзывы Клиентов"
+msgstr "Отзывы читателей"
 
 #: i18n/oscar/templates/oscar/catalogue/reviews/review_list.html:50
 msgid "Sort by:"
@@ -8330,11 +8328,11 @@ msgstr ""
 
 #: i18n/oscar/templates/oscar/partials/form_fields.html:6
 msgid "Oops! We found some errors"
-msgstr ""
+msgstr "Упс! Что-то пошло не так"
 
 #: i18n/oscar/templates/oscar/partials/form_fields.html:6
 msgid "please check the error messages below and try again"
-msgstr ""
+msgstr "убедитесь, что заполнили все без ошибок и попробуйте еще раз"
 
 #: i18n/oscar/templates/oscar/partials/image_input_widget.html:6
 #: i18n/oscar/templates/oscar/partials/image_input_widget.html:8
@@ -8351,7 +8349,7 @@ msgstr ""
 
 #: i18n/oscar/templates/oscar/partials/nav_accounts.html:41
 msgid "Logout"
-msgstr ""
+msgstr "Выйти"
 
 #: i18n/oscar/templates/oscar/partials/nav_primary.html:27
 msgid "Browse Store"
@@ -8359,7 +8357,7 @@ msgstr "Магазин"
 
 #: i18n/oscar/templates/oscar/partials/nav_primary.html:32
 msgid "All Products"
-msgstr "Все товары"
+msgstr "Все книги"
 
 #: i18n/oscar/templates/oscar/partials/pagination.html:8
 #: i18n/oscar/templates/oscar/search/partials/pagination.html:8

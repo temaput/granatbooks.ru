@@ -46,11 +46,13 @@
                             {% endfor %}
                         {% endfor %}
                     {% endif %}
+                    {% comment %}
                     <li class="divider"></li>
                     <li><a href="{% url 'offer:list' %}">{% trans "Offers" %}</a></li>
+                    {% endcomment %}
                 </ul>
             </div>
-            {% include "partials/search.html" %}
+            {# {% include "partials/search.html" %} #}
         </div><!-- /nav-collapse -->
 
     </div><!-- /navbar-inner -->

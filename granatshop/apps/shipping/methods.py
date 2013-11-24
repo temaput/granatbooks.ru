@@ -6,7 +6,7 @@ log = logging.getLogger(__name__)
 
 from django.utils.translation import ugettext_lazy as _
 from oscar.apps.shipping.methods import Free, FixedPrice
-from apps.shipping.base import ShippingMethod
+from oscar.apps.shipping.base import ShippingMethod
 from apps.shipping.utils import estimateWeight
 
 

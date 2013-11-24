@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="{% static "oscar/js/colorbox/colorbox.css" %}" type="text/css" media="screen" charset="utf-8"/>
 {% endblock %}
 
+{% block description %}{% if product.attr.meta_description %}{{ product.attr.meta_description }}{% else %}{{ product.description|safe|striptags|cut:"&nbsp;"|truncatewords:50 }}{% endif %}{% endblock %}
+{% block keywords %}{% if product.attr.meta_keywords %}{{ product.attr.meta_keywords }}{% else %}{{ product.title|cut:"." }} купить{% endif %}{% endblock %}
+
 {% block title %}
     {{ product.title }} | {{ block.super }}
 {% endblock %}
@@ -70,10 +73,13 @@
                 <a class="pull-right" href="{% url 'dashboard:catalogue-product' product.id %}"><small><i class="icon-edit"></i> {% trans "Edit this product" %}</small></a>
             {% endif %}
             <h1>{{ product.get_title }}</h1>
+                <h3><small>{{ product.authors }}</small></h3>
 
+            {% comment %}
             {% block product_stock_record %}
             {% include "catalogue/partials/stock_record.html" %}
             {% endblock %}
+            {% endcomment %}
 
             {% iffeature "reviews" %}
                 {% if product.rating != None %}
@@ -116,6 +122,7 @@
         {% endif %}
     {% endblock %}
 
+    {% comment %}
     {% block product_info %}
     <div class="sub-header">
         <h2>{% trans "Product Information" %}</h2>
@@ -159,6 +166,7 @@
         </tr>
     </table>
     {% endblock %}
+    {% endcomment %}
 
     {% iffeature "reviews" %}
         {% block product_review %}
@@ -225,7 +233,7 @@
         </div>
         {% endif %}
 
-        {% recently_viewed_products %}
+        {# {% recently_viewed_products %} #}
 
     </div>
 </article><!-- End of product page -->

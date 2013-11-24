@@ -11,5 +11,3 @@ class Product(AbstractProduct):
     authors = models.CharField(_('Authors'), max_length=255, blank=True, null=True)
 
 from oscar.apps.catalogue.models import *
-
-from .receivers import *

@@ -16,6 +16,8 @@ from oscar.apps.checkout.views import PaymentMethodView as corePaymentMethodView
 from oscar.apps.checkout.views import PaymentDetailsView as corePaymentDetailsView
 from oscar.apps.checkout.views import ThankYouView as coreThankYouView
 
+from robokassa.facade import robokassa_redirect
+
 from apps.shipping.methods import Pickup
 from apps.shipping.repository import Repository
 
@@ -178,7 +180,22 @@ class PaymentDetailsView(corePaymentDetailsView):
 
     def handle_payment(self, order_number, total_incl_tax, **kwargs):
         source_type = self.checkout_session.payment_method()
+        log.debug("=" * 80)
+        log.debug("PROCESSING PAYMENT")
+        log.debug("=" * 80)
+        log.debug("source_type code is %s", source_type.code)
         if not source_type.code in DeferedPaymentCodes:
+            log.debug("Not deferred")
+            # here we parse the actual online payment
+            if source_type.code in ("robokassa",):
+                log.debug("Is robokassa")
+                if self.request.user.is_superuser:  # ! REMOVE THIS
+                    log.debug("User is superuser")
+                    # we need to pass basket number and amount
+                    basket_num = self.checkout_session.get_submitted_basket_id()
+                    # this call supposed to raise RedirectRequiredError
+                    robokassa_redirect(basket_num, total_incl_tax, 
+                            order_num=order_number)
             raise UnableToTakePayment(u"Данный вид платежа не поддерживается")
 
 

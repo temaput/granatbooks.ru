@@ -9,6 +9,9 @@
 {% load i18n %}
 {% load staticfiles %}
 
+{% block description %}{{ summary }}{% endblock %}
+{% block keywords %}{{ summary }} | {{ block.super }}{% endblock %}
+
 {% block title %}
     {{ summary }} | {{ block.super }}
 {% endblock %}
@@ -40,7 +43,6 @@
     {% if tree_categories %}
         <div class="side_categories" style="padding: 8px 0;">
             <ul class="nav nav-list">
-                <li class="nav-header">{% trans "Browse categories" %}</li>
                 {% for tree_category, info in tree_categories %}
                     <li>
                     {% if tree_category.pk == category.pk %}

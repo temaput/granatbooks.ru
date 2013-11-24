@@ -24,9 +24,11 @@
     {% endblock %}
 
     {% block product_title %}
-    <h3><a href="{{ product.get_absolute_url }}">{{ product.get_title|truncatewords:4 }}</a></h3>
+    <h3><a href="{{ product.get_absolute_url }}">{{ product.get_title }}
+            <br><small>{{ product.authors }}</small></a></h3>
     {% endblock %}
 
+    {% comment %}
     {% block product_price %}
     <div class="product_price">
         {% include "catalogue/partials/stock_record.html" %}
@@ -37,4 +39,5 @@
         {% endif %}
    </div>
     {% endblock %}
+    {% endcomment %}
 </article>

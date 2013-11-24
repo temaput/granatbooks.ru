@@ -10,12 +10,20 @@ from app import application
 from django.contrib import admin
 admin.autodiscover()
 
+from rollyourown.seo.admin import register_seo_admin
+from apps.catalogue.seo import MyMetadata
+
+register_seo_admin(admin.site, MyMetadata)
+
 urlpatterns = patterns('',
-        url(r'', include(application.urls)),
 
     # Examples:
-    # url(r'^$', 'granatshop.views.home', name='home'),
+        # url(r'^$', RedirectView.as_view(url='/catalogue'), name='home'),
+        url(r'', include(application.urls)),
     # url(r'^granatshop/', include('granatshop.foo.urls')),
+    
+    # Robokassa integration...
+    (r'^checkout/robokassa/', include('robokassa.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
         url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

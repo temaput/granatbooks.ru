@@ -1,9 +1,16 @@
 # Django settings for granatshop project.
 
 import os
-
-
 from os.path import join, realpath, pardir, dirname
+
+
+from django.core.exceptions import ImproperlyConfigured
+def get_env(name):
+    try:
+        return os.environ[name]
+    except KeyError:
+        raise ImproperlyConfigured("Environment error: %s" % name)
+
 PROJECTPATH =  realpath(join(dirname(__file__), pardir, pardir))
 root = lambda x: join(PROJECTPATH, x) 
 
@@ -85,7 +92,7 @@ STATICFILES_FINDERS = (
 
 # Make this unique, and don't share it with anybody.
 
-SECRET_KEY = os.environ['GRANAT_SECRET_KEY']
+SECRET_KEY = get_env('GRANAT_SECRET_KEY')
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -164,7 +171,8 @@ INSTALLED_APPS = [
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'apps.invoice',
-] + get_core_apps(['apps.catalogue', 'apps.checkout', 'apps.promotions', 'apps.shipping'])
+    'robokassa',
+] + get_core_apps(['apps.dashboard', 'apps.checkout', 'apps.catalogue', 'apps.shipping'])
 
 
 #LOCALE
@@ -179,3 +187,4 @@ LOCALE_PATHS = (root( 'locale'),)
 from oscar.defaults import *
 from granatshop.oscar_settings import *
 from granatshop.requisites import REQUISITES
+from granatshop.robokassa_settings import *
