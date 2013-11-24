@@ -10,11 +10,6 @@ from app import application
 from django.contrib import admin
 admin.autodiscover()
 
-from rollyourown.seo.admin import register_seo_admin
-from apps.catalogue.seo import MyMetadata
-
-register_seo_admin(admin.site, MyMetadata)
-
 urlpatterns = patterns('',
 
     # Examples:
