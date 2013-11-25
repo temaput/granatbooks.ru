@@ -34,6 +34,7 @@ Source = get_model('payment', 'Source')
 CheckoutSessionData = get_class('checkout.utils', 'CheckoutSessionData')
 # defered payment codes - коды офлайновых способов оплаты, нал, через банк, по счету
 DeferedPaymentCodes = ('cash_payment', 'sbrf_slip', 'invoice_payment')
+RedirectPaymentCodes = ('robokassa',)
 
 User = get_user_model()
 
@@ -79,7 +80,8 @@ class PaymentMethodView(corePaymentMethodView):
         return ctx
 
     def get_success_response(self):
-        if self.checkout_session.payment_method().code in DeferedPaymentCodes:
+        if self.checkout_session.payment_method().code \
+                in DeferedPaymentCodes + RedirectPaymentCodes:
             return HttpResponseRedirect(reverse('checkout:preview'))
         return HttpResponseRedirect(reverse('checkout:payment-details'))
 
