@@ -15,7 +15,7 @@ PROJECTPATH =  realpath(join(dirname(__file__), pardir, pardir))
 root = lambda x: join(PROJECTPATH, x) 
 
 ADMINS = (
-    # ('Artem Putilov', 'putilkin@gmail.com'),
+    ('Artem Putilov', 'putilkin@gmail.com'),
 )
 
 
