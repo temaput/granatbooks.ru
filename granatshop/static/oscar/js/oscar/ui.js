@@ -104,8 +104,8 @@ var oscar = (function(o, $) {
         isDesktop: function() {
             return document.body.clientWidth > 767;
         },
-        /* PA: removed to prevent nav menu from being not wide enough
-        initNav: function() {
+        initNav: function() {},
+        /*
             // Initial navigation for desktop
             var $sidebar = $('aside.span3'), 
                 $browse = $('#browse > .dropdown-menu'), 
@@ -118,8 +118,7 @@ var oscar = (function(o, $) {
                 // Set margin top of aside allow space for open navigation
                 $sidebar.css({ marginTop: $browse.outerHeight() });
             }
-        },
-        */
+        }, */
         initCarousel: function() {
             $('.es-carousel-wrapper').each(function(){
                 var gallery = $(this).parent('.rg-thumbs').length;
