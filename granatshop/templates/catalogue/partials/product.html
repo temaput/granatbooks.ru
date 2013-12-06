@@ -1,3 +1,4 @@
+{% extends "oscar/catalogue/partials/product.html" %}
 {% load url from future %}
 {% load currency_filters %}
 {% load reviews_tags %}
@@ -6,38 +7,11 @@
 {% load display_tags %}
 {% load staticfiles %}
 
-<article class="product_pod">
-    {% block product_image %}
-    <div class="image_container">
-        {% with image=product.primary_image %}
-            {% thumbnail image.original "400x400" upscale=False as thumb %}
-                <a href="{{ product.get_absolute_url }}"><img src="{% static thumb.url %}" alt="{{ product.get_title }}" class="thumbnail"></a>
-            {% endthumbnail %}
-        {% endwith %}
-    </div>
-    {% endblock %}
-
-    {% block product_review %}
-        {% iffeature "reviews" %}
-            <p class="star {{ product.rating|as_stars }}"></p>
-        {% endiffeature %}
-    {% endblock %}
 
     {% block product_title %}
     <h3><a href="{{ product.get_absolute_url }}">{{ product.get_title }}
             <br><small>{{ product.authors }}</small></a></h3>
     {% endblock %}
 
-    {% comment %}
     {% block product_price %}
-    <div class="product_price">
-        {% include "catalogue/partials/stock_record.html" %}
-        {% if product.is_group %}
-            <a class="btn btn-full" href="{% url 'catalogue:detail' product.slug product.id %}">{% trans "View" %}</a>
-        {% else %}
-            {% include "catalogue/partials/add_to_basket_form_compact.html" %}
-        {% endif %}
-   </div>
     {% endblock %}
-    {% endcomment %}
-</article>
