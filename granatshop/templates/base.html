@@ -1,8 +1,12 @@
 {% extends 'oscar/base.html' %}
+{% load staticfiles %}
 {% block title %} {{shop_name}} {% endblock %}
 {% block description %}{{ shop_name }} {{ shop_tagline }}{% endblock %}
 {% block keywords %}{{ shop_name }} {{shop_tagline}}{% endblock %}
 {% block favicon %}{% endblock %}
+{% block extrahead %}
+                        <link rel="stylesheet" type="text/css" href="{% static "granatshop/css/granatshop.css" %}" />
+{% endblock %}
 {% block tracking %} 
 {# Default to using Google analytics #}
 {% include "partials/google_analytics.html" %}
