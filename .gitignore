@@ -1,0 +1,17 @@
+sandbox
+granatshop/granatshop/wsgi.py
+db.sqlite*
+*/zonesdb
+tmp*.*
+*/logs/*
+*/media/
+*/static/oscar/img
+*/static/oscar/fonts
+*/static/admin
+.listing
+*.pyc
+__pycache__
+*.swp
+*.bak
+*.DBF
+*.tmp
