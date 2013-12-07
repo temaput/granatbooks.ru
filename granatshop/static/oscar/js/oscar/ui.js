@@ -3,7 +3,7 @@ var oscar = (function(o, $) {
     o.messages = {
         addMessage: function(tag, msg) {
             var msgHTML = '<div class="alert fade in alert-' + tag + '">' +
-                '<a href="#" class="close" data-dismiss="alert">x</a>'  + msg +
+                '<a href="#" class="close" data-dismiss="alert">&times;</a>'  + msg +
                 '</div>';
             $('#messages').append($(msgHTML));
         },
@@ -11,7 +11,7 @@ var oscar = (function(o, $) {
         info: function(msg) { o.messages.addMessage('info', msg); },
         success: function(msg) { o.messages.addMessage('success', msg); },
         warning: function(msg) { o.messages.addMessage('warning', msg); },
-        error: function(msg) { o.messages.addMessage('error:', msg); },
+        error: function(msg) { o.messages.addMessage('error', msg); },
         clear: function() {
             $('#messages').html('');
         },
@@ -23,9 +23,7 @@ var oscar = (function(o, $) {
     // This block may need removing after reworking of promotions app
     o.promotions = {
         init: function() {
-            $('#myCarousel').carousel({
-                interval: 6000
-            });
+
         }
     };
 
@@ -65,19 +63,6 @@ var oscar = (function(o, $) {
         }
     };
 
-    o.account = {
-        init: function() {
-            if (document.location.hash) {
-                // Ensure the right tab is open if it is specified in the hash.
-                var hash = document.location.hash.substring(1),
-                $activeClass = $('.account-profile .tabbable'),
-                $li = $('a[href=#' + hash + ']').closest('li');
-                $activeClass.find('.active').removeClass('active');
-                $('#' + hash).add($li).addClass('active');
-            }
-        }
-    };
-
 
     o.page = {
         init: function() {
@@ -98,43 +83,28 @@ var oscar = (function(o, $) {
         init: function() {
             if (o.responsive.isDesktop()) {
                 o.responsive.initNav();
-                o.responsive.initCarousel();
             }
         },
         isDesktop: function() {
             return document.body.clientWidth > 767;
         },
-        initNav: function() {},
-        /*
+        initNav: function() {
             // Initial navigation for desktop
             var $sidebar = $('aside.span3'), 
-                $browse = $('#browse > .dropdown-menu'), 
-                $browseOpen = $browse.parent().find('> button[data-toggle]');
+                $browse = $('[data-navigation="dropdown-menu"]'),
+                $browseOpen = $browse.parent().find('> a[data-toggle]');
             // Set width of nav dropdown to be same as sidebar
-            $browse.css('width', $sidebar.outerWidth());
+            //$browse.css('width', $sidebar.outerWidth());
             // Remove click on browse button if menu is currently open
             if (!$browseOpen.length) {
                 $browse.parent().find('> a').off('click');
                 // Set margin top of aside allow space for open navigation
                 $sidebar.css({ marginTop: $browse.outerHeight() });
             }
-        }, */
-        initCarousel: function() {
-            $('.es-carousel-wrapper').each(function(){
-                var gallery = $(this).parent('.rg-thumbs').length;
-                // Don't apply this to the gallery carousel
-                if (gallery <= 0) {
-                    var imageWidth = 175,
-                        minProducts = 4;
-                    if ($(this).hasClass('wide')) {
-                        minProducts = 5;
-                    }
-                    $(this).elastislide({
-                        imageW: imageWidth,
-                        minItems: minProducts,
-                        onClick: function() {return true;}
-                    });
-                }
+        },
+        initSlider: function() {
+            $('.carousel').carousel({
+                interval: 20000
             });
         }
     };
@@ -257,6 +227,7 @@ var oscar = (function(o, $) {
         o.forms.init();
         o.page.init();
         o.responsive.init();
+        o.responsive.initSlider();
         o.compatibility.init();
     };
 

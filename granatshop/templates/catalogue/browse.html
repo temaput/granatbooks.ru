@@ -1,4 +1,4 @@
-{% extends "layout_2_col.html" %}
+{% extends "oscar/catalogue/browse.html" %}
 
 {% load url from future %}
 {% load currency_filters %}
@@ -11,33 +11,6 @@
 
 {% block description %}{{ summary }}{% endblock %}
 {% block keywords %}{{ summary }} | {{ block.super }}{% endblock %}
-
-{% block title %}
-    {{ summary }} | {{ block.super }}
-{% endblock %}
-
-{% block headertext %}{{ summary }}{% endblock %}
-
-{% block breadcrumbs %}
-    <ul class="breadcrumb">
-        <li>
-            <a href="{% url "promotions:home" %}">{% trans "Home" %}</a>
-            <span class="divider">/</span>
-        </li>
-        {% if not category %}
-            <li class="active">{% trans "All products" %}</li>
-        {% else %}
-            {% for category in category.get_ancestors|slice:":-1" %}
-                <li>
-                    <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
-                    <span class="divider">/</span>
-                </li>
-            {% endfor %}
-            <li class="active">{{ category.name }}</li>
-        {% endif %}
-    </ul>
-{% endblock breadcrumbs %}
-
 {% block column_left %}
     {% category_tree as tree_categories %}
     {% if tree_categories %}
@@ -60,29 +33,3 @@
         </div>
     {% endif %}
 {% endblock %}
-
-{% block content %}
-    {% if category.description %}
-        <div class="row-fluid">
-            <div class="span9"><p>{{ category.description|safe }}</p></div>
-            {% if category.image %}
-                <div class="span3"><img src="{% static category.image.url %}" alt="{{ summary }}" /></div>
-            {% endif %}
-        </div>
-    {% endif %}
-
-    {% if products %}
-        <section>
-            <div class="mod">
-                <ol class="products four">
-                    {% for product in products %}
-                        <li>{% render_product product %}</li>
-                    {% endfor %}
-                </ol>
-                {% include "partials/pagination.html" %}
-            </div>
-        </section>
-    {% else %}
-        <p class="nonefound">{% trans "No products found." %}</p>
-    {% endif %}
-{% endblock content %}
