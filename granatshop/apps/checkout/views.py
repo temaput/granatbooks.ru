@@ -54,11 +54,10 @@ class PaymentMethodView(corePaymentMethodView):
             return HttpResponseRedirect(reverse('checkout:shipping-address'))
 
         # Check that shipping method has been set
-        if shipping_required and not self.checkout_session.is_shipping_method_set():
+        if shipping_required and not self.checkout_session.is_shipping_method_set(self.request.basket):
             messages.error(request, _("Please choose a shipping method"))
             return HttpResponseRedirect(reverse('checkout:shipping-method'))
 
-        self._methods = self.get_available_payment_methods()
         # ----------------------------------------------------
         return super(corePaymentMethodView, self).get(request, *args, **kwargs)
 
@@ -76,7 +75,7 @@ class PaymentMethodView(corePaymentMethodView):
 
     def get_context_data(self, **kwargs):
         ctx = super(corePaymentMethodView, self).get_context_data(**kwargs)
-        ctx['methods'] = self._methods
+        ctx['methods'] = self.get_available_payment_methods()
         return ctx
 
     def get_success_response(self):
