@@ -9,7 +9,7 @@ from apps.shipping.methods import (
 
 
 class Repository(repository.Repository):
-    methods = (Pickup(), Express(D('300')), RusPost(D('400')))
+    methods = (Pickup(), Express(D('300'), D('300')), RusPost(D('400')))
 
     def get_shipping_methods(self, user, basket, shipping_addr=None, **kwargs):
         log.debug("Repository knows about following shipping methods: %s", 

@@ -21,11 +21,14 @@ class Pickup(Free):
 class Express(FixedPrice):
     code = 'express-delivery-shipping'
     name = u"Курьер"
+    is_tax_known = True
+
 
 
 class RusPost(ShippingMethod):
     code = 'russian-post'
     name = u"Почта России"
+    is_tax_known = True
     
 
     def __init__(self, defaultCharge=0):
@@ -40,7 +43,8 @@ class RusPost(ShippingMethod):
         if shipping_address is not None:
             self.postcode = shipping_address.postcode
 
-    def basket_charge_incl_tax(self):
+    @property
+    def charge_incl_tax(self):
         log.debug("counting charge for RusPost")
         try:
             from tarifcalc import tarifcalc
@@ -75,7 +79,8 @@ class RusPost(ShippingMethod):
         log.debug("completed: charge = %s", charge) 
         return charge if charge else self.defaultCharge
 
-    def basket_charge_excl_tax(self):
+    @property
+    def charge_excl_tax(self):
         return self.basket_charge_incl_tax()
 
 

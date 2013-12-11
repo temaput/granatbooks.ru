@@ -85,23 +85,6 @@ class PaymentMethodView(corePaymentMethodView):
         return HttpResponseRedirect(reverse('checkout:payment-details'))
 
 
-def checkout_session_shipping_method(self, basket=None, shipping_address=None):
-    """
-    This we inject into checkout_session object, to replace original method
-    without rewriting the whole app. Purpose is to pass shipping address to
-    Repository, so that we could prime our methods, that require address, i.e
-    Russian Post.
-    Returns the shipping method model based on the
-    data stored in the session.
-    """
-    log.debug("Injected shipping_method func invoked")
-    if not basket:
-        basket = self.request.basket
-    code = self._get('shipping', 'method_code')
-    if not code:
-        return None
-    return Repository().find_by_code(code, basket, shipping_address)
-
 class PaymentDetailsView(corePaymentDetailsView):
     advice_type_code = 'NEW_ORDER_ADVICE'
 
@@ -129,23 +112,6 @@ class PaymentDetailsView(corePaymentDetailsView):
                     dispatcher = Dispatcher()
                     dispatcher.dispatch_direct_messages(manager.email, messages)
 
-    def get_shipping_method(self, basket=None):
-        """ this method originaly placed in checkout_session"""
-        log.debug("get_shipping_method invokes from View")
-        shipping_address = self.get_shipping_address()
-        if not hasattr(self.checkout_session, 'shipping_method_injected'):
-            import types
-            f = types.MethodType(checkout_session_shipping_method, 
-                    self.checkout_session, CheckoutSessionData)
-            self.checkout_session.shipping_method = f
-            self.checkout_session.shipping_method_injected = True
-        method = self.checkout_session.shipping_method(basket, shipping_address)
-
-        # We default to using Customer Pickup
-        if not method:
-            method = Pickup()
-
-        return method
 
     def handle_successful_order(self, order):
         """ This actually came from OrderPlacement mixin
@@ -179,7 +145,7 @@ class PaymentDetailsView(corePaymentDetailsView):
         ctx.update(kwargs)
         return ctx
 
-    def handle_payment(self, order_number, total_incl_tax, **kwargs):
+    def handle_payment(self, order_number, total, **kwargs):
         source_type = self.checkout_session.payment_method()
         log.debug("=" * 80)
         log.debug("PROCESSING PAYMENT")
@@ -195,7 +161,7 @@ class PaymentDetailsView(corePaymentDetailsView):
                     # we need to pass basket number and amount
                     basket_num = self.checkout_session.get_submitted_basket_id()
                     # this call supposed to raise RedirectRequiredError
-                    robokassa_redirect(basket_num, total_incl_tax, 
+                    robokassa_redirect(basket_num, total.incl_tax, 
                             order_num=order_number)
             raise UnableToTakePayment(u"Данный вид платежа не поддерживается")
 
@@ -204,13 +170,13 @@ class PaymentDetailsView(corePaymentDetailsView):
         # request was a 'pre-auth', we set the 'amount_allocated' - if we had
         # performed an 'auth' request, then we would set 'amount_debited'.
         source = Source(source_type=source_type,
-                        amount_allocated=total_incl_tax,
+                        amount_allocated=total.incl_tax,
                         reference='') # PA: reference could be No of invoice?
         self.add_payment_source(source)
 
         # Also record payment event
         self.add_payment_event(
-            'pre-auth', total_incl_tax, reference='')
+            'pre-auth', total.incl_tax, reference='')
 
 
 class ThankYouView(coreThankYouView):
