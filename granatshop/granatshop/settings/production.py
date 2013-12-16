@@ -21,6 +21,7 @@ STATIC_ROOT = ondomain('static')
 
 # Dunno if it works, need checking
 TEMP = '/tmp/mc-granat-site'
+SEND_BROKEN_LINK_EMAILS = True
 
 
 ALLOWED_HOSTS = ['.{}'.format(DOMAIN)]

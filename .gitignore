@@ -1,7 +1,8 @@
+.remote/
 i18n
 sandbox
 granatshop/granatshop/wsgi.py
-db.sqlite*
+*.sqlite*
 */zonesdb
 tmp*.*
 */logs/*
