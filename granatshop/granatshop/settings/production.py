@@ -25,9 +25,6 @@ TEMP = '/tmp/mc-granat-site'
 
 ALLOWED_HOSTS = ['.{}'.format(DOMAIN)]
 
-ALLOWED_HOSTS = ['*']  # remove this!!!
-
-
 #
 # ANALITICS
 # =========
