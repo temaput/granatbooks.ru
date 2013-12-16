@@ -44,6 +44,8 @@ EMAIL_HOST_USER = os.environ['GRANAT_EMAIL']
 EMAIL_HOST_PASSWORD = os.environ['GRANAT_EMAIL_PASSWORD']
 EMAIL_USE_TLS = True
 EMAIL_PORT = '465'
+SERVER_EMAIL = EMAIL_HOST_USER
+ERROR_TEST = True  #this should be false after succesfull testing
 
 
 # Logging
