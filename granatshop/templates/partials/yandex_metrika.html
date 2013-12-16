@@ -1,9 +1,10 @@
+{% if yandex_metrika_id %}
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
 (function (d, w, c) {
     (w[c] = w[c] || []).push(function() {
         try {
-            w.yaCounter20946025 = new Ya.Metrika({id:20946025,
+        w.yaCounter{{yandex_metrika_id}} = new Ya.Metrika({id:{{yandex_metrika_id}},
                     webvisor:true,
                     clickmap:true,
                     trackLinks:true,
@@ -23,5 +24,6 @@
     } else { f(); }
 })(document, window, "yandex_metrika_callbacks");
 </script>
-<noscript><div><img src="//mc.yandex.ru/watch/20946025" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div><img src="//mc.yandex.ru/watch/{{yandex_metrika_id}}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+{% endif %}

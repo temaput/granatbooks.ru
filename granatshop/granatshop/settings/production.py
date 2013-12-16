@@ -28,6 +28,14 @@ ALLOWED_HOSTS = ['.{}'.format(DOMAIN)]
 ALLOWED_HOSTS = ['*']  # remove this!!!
 
 
+#
+# ANALITICS
+# =========
+
+GOOGLE_ANALYTICS_ID = get_env('GRANAT_GOOGLE_ANALYTICS_ID')
+YANDEX_METRIKA_ID = get_env('GRANAT_YANDEX_METRIKA_ID')
+
+
 # EMAILS
 #========
 

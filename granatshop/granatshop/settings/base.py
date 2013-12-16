@@ -133,6 +133,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'oscar.apps.checkout.context_processors.checkout',
     'oscar.apps.customer.notifications.context_processors.notifications',
     'oscar.core.context_processors.metadata',
+    'granatshop.context_processors.metadata',
 )
 
 ROOT_URLCONF = 'granatshop.urls'
