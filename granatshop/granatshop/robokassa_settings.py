@@ -9,4 +9,4 @@ except KeyError:
     raise ImproperlyConfigured("Environment error: ROBOKASSA_PASSWORD")
 ROBOKASSA_USE_POST = True
 ROBOKASSA_STRICT_CHECK = True
-ROBOKASSA_TEST_MODE = True
+ROBOKASSA_TEST_MODE = False
