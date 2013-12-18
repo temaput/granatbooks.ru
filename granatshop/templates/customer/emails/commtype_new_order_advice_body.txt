@@ -8,6 +8,7 @@
 E-mail: {{ order.email }}
 Телефон: {{ order.shipping_address.phone_number }}
 Способ доставки: {{ order.shipping_method }}
+Способ оплаты: {% for source in order.sources.all %} {{source.source_type.name}} {% endfor %}
 
 
 Состав заказа:

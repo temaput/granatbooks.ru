@@ -11,6 +11,7 @@
     <li>E-mail: {{ order.email }}</li>
     <li>Телефон: {{ order.shipping_address.phone_number }}</li>
     <li>Способ доставки: {{ order.shipping_method }}</li>
+    <li>Способ оплаты: {% for source in order.sources.all %}{{source.source_type.name}}&nbsp;{% endfor %}</li>
 </ul>
 
 <p>Состав заказа:</p>
@@ -29,4 +30,3 @@
 <p>{% trans 'Shipping address:' %}</p>
 <p>{% for field in order.shipping_address.active_address_fields %}  {{ field }}<br/>
 {% endfor %}</p>
-
