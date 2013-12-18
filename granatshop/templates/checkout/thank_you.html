@@ -1,0 +1,5 @@
+{% extends "oscar/checkout/thank_you.html" %}
+{% block tracking %}
+    {% include "partials/google_analytics_transaction.html" %}
+    {% include "partials/yandex_metrika.html" %}
+{% endblock %}
