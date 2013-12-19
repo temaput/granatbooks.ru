@@ -37,13 +37,10 @@ YANDEX_METRIKA_ID = get_env('GRANAT_YANDEX_METRIKA_ID')
 # EMAILS
 #========
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'granatshop.smtpssl_backend.EmailSSLBackend'
-EMAIL_HOST = 'smtp.jino.ru'
-EMAIL_HOST_USER = os.environ['GRANAT_EMAIL']
-EMAIL_HOST_PASSWORD = os.environ['GRANAT_EMAIL_PASSWORD']
-EMAIL_USE_TLS = True
-EMAIL_PORT = '465'
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = '/tmp/granat-messages' # change this to a proper location
+EMAIL_HOST_USER = 'order@granatbooks.ru'
+
 SERVER_EMAIL = EMAIL_HOST_USER
 ERROR_TEST = True  #this should be false after succesfull testing
 
@@ -148,6 +145,11 @@ LOGGING = {
             'propagate': False,
             'level': 'DEBUG',
         },
+        'robokassa': {
+            'handlers': ['console', 'error_file'],
+            'level': 'ERROR',
+            'propagate': True,
+            },
         # suppress output of this debug toolbar panel
         'template_timings_panel': {
             'handlers': ['null'],
