@@ -13,3 +13,6 @@
     border-left: 0;
     margin-left: 0;
 }
+.basket-mini .dropdown-menu {
+  width: 550px;
+}
