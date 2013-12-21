@@ -3,10 +3,11 @@
 import logging
 log = logging.getLogger(__name__)
 
+from decimal import Decimal as D
 
 from django.utils.translation import ugettext_lazy as _
-from oscar.apps.shipping.methods import Free, FixedPrice
-from oscar.apps.shipping.base import ShippingMethod
+from oscar.apps.shipping.base import Base
+from oscar.apps.shipping.methods import Free
 from apps.shipping.utils import estimateWeight
 
 
@@ -18,22 +19,20 @@ class Pickup(Free):
     name = u"Самовывоз"
 
 
-class Express(FixedPrice):
+class Express(Base):
     code = 'express-delivery-shipping'
     name = u"Курьер"
     is_tax_known = True
+    charge_incl_tax = charge_excl_tax = D(300)
 
 
 
-class RusPost(ShippingMethod):
+class RusPost(Base):
     code = 'russian-post'
     name = u"Почта России"
     is_tax_known = True
+    defaultCharge = D(300)
     
-
-    def __init__(self, defaultCharge=0):
-        super(ShippingMethod, self).__init__()
-        self.defaultCharge = defaultCharge
 
     def set_shipping_addr(self, shipping_addr):
         self.set_postcode(shipping_addr)

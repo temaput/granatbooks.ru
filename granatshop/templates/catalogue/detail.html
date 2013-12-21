@@ -7,7 +7,7 @@
 {% load product_tags %}
 {% load display_tags %}
 {% load i18n %}
-{% load stockrecord_tags %}
+{% load purchase_info_tags %}
 
 {% block description %}{% if product.attr.meta_description %}{{ product.attr.meta_description }}{% else %}{{ product.description|safe|striptags|cut:"&nbsp;"|truncatewords:50 }}{% endif %}{% endblock %}
 {% block keywords %}{% if product.attr.meta_keywords %}{{ product.attr.meta_keywords }}{% else %}{{ product.title|cut:"." }} купить{% endif %}{% endblock %}
