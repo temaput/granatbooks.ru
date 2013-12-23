@@ -5,7 +5,6 @@ Customized product models
 """
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 
 from oscar.apps.catalogue.abstract_models import AbstractProduct
 
