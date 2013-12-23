@@ -156,12 +156,10 @@ class PaymentDetailsView(corePaymentDetailsView):
             # here we parse the actual online payment
             if source_type.code in ("robokassa",):
                 log.debug("Is robokassa")
-                if self.request.user.is_superuser:  # ! REMOVE THIS
-                    log.debug("User is superuser")
-                    # we need to pass basket number and amount
-                    basket_num = self.checkout_session.get_submitted_basket_id()
-                    # this call supposed to raise RedirectRequiredError
-                    robokassa_redirect(basket_num, total.incl_tax, 
+                # we need to pass basket number and amount
+                basket_num = self.checkout_session.get_submitted_basket_id()
+                # this call supposed to raise RedirectRequiredError
+                robokassa_redirect(self.request, basket_num, total.incl_tax, 
                             order_num=order_number)
             raise UnableToTakePayment(u"Данный вид платежа не поддерживается")
 

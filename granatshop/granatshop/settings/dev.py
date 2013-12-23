@@ -126,6 +126,16 @@ LOGGING = {
             'propagate': False,
             'level': 'DEBUG',
         },
+        'robokassa': {
+            'handlers':['console'],
+            'propagate': False,
+            'level': 'DEBUG'
+            },
+        'tarifcalc': {
+            'handlers': ['console'],
+            'propagate': False,
+            'level': 'INFO'
+            },
         # suppress output of this debug toolbar panel
         'template_timings_panel': {  # this has something to do with django debug panel
             'handlers': ['null'],
