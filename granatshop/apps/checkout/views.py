@@ -107,8 +107,11 @@ class PaymentDetailsView(corePaymentDetailsView):
                 # we need to pass basket number and amount
                 basket_num = self.checkout_session.get_submitted_basket_id()
                 # this call supposed to raise RedirectRequiredError
+                email = self.request.user.email if \
+                        self.request.user.is_authenticated() else \
+                        self.checkout_session.get_guest_email()
                 robokassa_redirect(self.request, basket_num, total.incl_tax, 
-                            order_num=order_number)
+                        Email=email, Culture='ru', order_num=order_number)
             raise UnableToTakePayment(u"Данный вид платежа не поддерживается")
 
 
