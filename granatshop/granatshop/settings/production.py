@@ -148,6 +148,11 @@ LOGGING = {
             'propagate': False,
             'level': 'DEBUG',
         },
+        'robokassa': {
+            'handlers': ['mail_admins', 'error_file'],
+            'level': 'ERROR',
+            'propagate': False
+            },
         # suppress output of this debug toolbar panel
         'template_timings_panel': {
             'handlers': ['null'],

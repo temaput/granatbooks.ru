@@ -86,58 +86,6 @@ class PaymentMethodView(corePaymentMethodView):
 
 
 class PaymentDetailsView(corePaymentDetailsView):
-    advice_type_code = 'NEW_ORDER_ADVICE'
-
-    def send_advice_message(self, order):
-        """ send advice message about new order to manager """
-        code = self.advice_type_code
-        ctx = {'user': self.request.user,
-               'order': order,
-               'lines': order.lines.all()}
-        try:
-            event_type = CommunicationEventType.objects.get(code=code)
-        except CommunicationEventType.DoesNotExist:
-            # No event-type in database, attempt to find templates for this
-            # type and render them immediately to get the messages.  Since we
-            # have not CommunicationEventType to link to, we can't create a
-            # CommunicationEvent instance.
-            messages = CommunicationEventType.objects.get_and_render(code, ctx)
-            event_type = None
-        else:
-            messages = event_type.get_messages(ctx)
-
-        if messages and messages['body']:
-            for manager in User.objects.filter(is_staff=True):  # Here we should pick users from managers group
-                if manager.email:
-                    dispatcher = Dispatcher()
-                    dispatcher.dispatch_direct_messages(manager.email, messages)
-
-
-    def handle_successful_order(self, order):
-        """ This actually came from OrderPlacement mixin
-        --------------------------------------------
-        Handle the various steps required after an order has been successfully
-        placed.
-
-        Override this view if you want to perform custom actions when an
-        order is submitted.
-        """
-        # Send confirmation message (normally an email)
-        self.send_confirmation_message(order)
-
-
-        # This is custom notification for managers about the new order
-        self.send_advice_message(order)  
-
-        # Flush all session data
-        self.checkout_session.flush()
-
-        # Save order id in session so thank-you page can load it
-        self.request.session['checkout_order_id'] = order.id
-
-        response = HttpResponseRedirect(self.get_success_url())
-        self.send_signal(self.request, response, order)
-        return response
 
     def get_context_data(self, **kwargs):
         ctx = super(PaymentDetailsView, self).get_context_data(**kwargs)

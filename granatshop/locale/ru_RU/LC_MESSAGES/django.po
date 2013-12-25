@@ -6210,13 +6210,13 @@ msgstr "Нет результатов по этому поисковому за�
 #: i18n/oscar/templates/oscar/customer/emails/base.html:5
 #: i18n/oscar/templates/oscar/customer/emails/base.txt:3
 msgid "Thanks for using our site!"
-msgstr ""
+msgstr "С уважением, "
 
 #: i18n/oscar/templates/oscar/customer/emails/base.html:6
 #: i18n/oscar/templates/oscar/customer/emails/base.txt:4
 #, python-format
 msgid "The %(name)s team"
-msgstr ""
+msgstr "Коллектив %(name)s"
 
 #: i18n/oscar/templates/oscar/customer/emails/commtype_email_changed_body.html:6
 #, python-format
@@ -6342,7 +6342,7 @@ msgstr ""
 
 #: i18n/oscar/templates/oscar/customer/emails/commtype_order_placed_body.txt:24
 msgid "The team"
-msgstr "Команда"
+msgstr "Коллектив"
 
 #: i18n/oscar/templates/oscar/customer/emails/commtype_order_placed_subject.txt:1
 #, python-format

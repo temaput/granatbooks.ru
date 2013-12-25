@@ -43,6 +43,7 @@ EMAIL_HOST_USER = 'order@granatbooks.ru'
 
 SERVER_EMAIL = EMAIL_HOST_USER
 ERROR_TEST = True  #this should be false after succesfull testing
+ROBOKASSA_TEST_MODE = True
 
 
 # Logging
@@ -146,7 +147,7 @@ LOGGING = {
             'level': 'DEBUG',
         },
         'robokassa': {
-            'handlers': ['console', 'error_file'],
+            'handlers': ['mail_admins', 'error_file'],
             'level': 'ERROR',
             'propagate': True,
             },
