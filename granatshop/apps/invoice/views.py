@@ -41,7 +41,7 @@ class InvoiceContextMixin(SingleObjectMixin):
                 name = u'Доставка',
                 quantity = 1,
                 amount = order.shipping_incl_tax,
-                tax = order.shipping_incl_tax - order.shipping_excl_tax),)
+                tax = order.shipping_tax),)
 
         self.order = dict(
                 amount = order.total_incl_tax,
