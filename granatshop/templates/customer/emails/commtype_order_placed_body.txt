@@ -19,6 +19,16 @@ will be processed shortly.{% endblocktrans %}
 {% for field in order.shipping_address.active_address_fields %}  {{ field }}
 {% endfor %}
 
+Вы выбрали способ оплаты: 
+{% for source in order.sources.all %}
+    {{ source }}
+    {% if source.source_type.code == "sbrf_slip" %}
+    Вставьте этот текст в адресную строку Вашего браузера для того, чтобы
+    распечатать квитанцию: http://{{ site.domain }}{% url 'invoice:sbrf_slip' order.pk %}?hash={{ order.verification_hash }}
+    {% endif %}
+{% empty %}
+    {% trans "No payment was required for this order." %}
+{% endfor %}
 {% if status_url %}
 {% blocktrans %}You can view the status of this order at the below URL:
 {{ status_url }}{% endblocktrans %}

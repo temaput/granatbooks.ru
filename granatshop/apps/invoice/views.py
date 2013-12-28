@@ -3,7 +3,7 @@
 
 from django.views.generic import View 
 from django.views.generic.detail import SingleObjectMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.db.models import get_model
 
 from drawinvoice import sbrfslip, simpleinvoice
@@ -17,6 +17,10 @@ class InvoiceContextMixin(SingleObjectMixin):
 
     def parse_order(self):
         order = self.get_object()
+        verification_hash = self.request.GET.get('hash', None)
+        if verification_hash != order.verification_hash():
+            raise Http404
+
         if order.is_anonymous:
             username = order.shipping_address.name
         else:

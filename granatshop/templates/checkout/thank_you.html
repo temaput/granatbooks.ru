@@ -11,7 +11,7 @@
         {% for source in order.sources.all %}
             {{ source }}
             {% if source.source_type.code == "sbrf_slip" %}
-            <a href="{% url 'invoice:sbrf_slip' order.pk %}">Распечатать квитанцию</a>
+            <a href="{% url 'invoice:sbrf_slip' order.pk %}?hash={{ order.verification_hash }}">Распечатать квитанцию</a>
             {% endif %}
         {% empty %}
             {% trans "No payment was required for this order." %}
