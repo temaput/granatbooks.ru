@@ -35,6 +35,8 @@ CheckoutSessionData = get_class('checkout.utils', 'CheckoutSessionData')
 # defered payment codes - коды офлайновых способов оплаты, нал, через банк, по счету
 DeferedPaymentCodes = ('cash_payment', 'sbrf_slip', 'invoice_payment')
 RedirectPaymentCodes = ('robokassa',)
+RemotePaymentCodes = ('sbrf_slip', 'invoice_payment', 'robokassa')
+
 
 User = get_user_model()
 
@@ -71,7 +73,12 @@ class PaymentMethodView(corePaymentMethodView):
         return self.get_success_response()
 
     def get_available_payment_methods(self):
-        return SourceType.objects.all()
+        source_types = SourceType.objects.all()
+        shipping_method = self.get_shipping_method(self.request.basket)
+        if shipping_method.code == 'russian-post':
+            source_types = [st for st in source_types 
+                    if st.code in RemotePaymentCodes]
+        return source_types
 
     def get_context_data(self, **kwargs):
         ctx = super(corePaymentMethodView, self).get_context_data(**kwargs)
