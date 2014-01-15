@@ -9,6 +9,17 @@ DOMAINPATH = os.path.join(
         os.path.expanduser('~'), 'domains/{domain}'.format(domain=DOMAIN))
 ondomain = lambda x: os.path.join(DOMAINPATH, x)
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'granat-site_granatshop',                      # Or path to database file if using sqlite3.
+        'USER': '045535102_django',                      # Not used with sqlite3.
+        'PASSWORD': get_env('GRANAT_MYSQL_PASSWORD'),                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT =  ondomain('media')
