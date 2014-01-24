@@ -2,6 +2,8 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.views.generic.base import RedirectView
 from django.conf.urls.static import static
+from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
+from django.db.models import get_model
 from oscar.views import handler500, handler404, handler403
 
 from app import application
@@ -9,6 +11,13 @@ from app import application
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
+
+Product = get_model('catalogue', 'Product')
+products = {'queryset': Product.objects.all()}
+sitemaps = {
+            'flatpages': FlatPageSitemap,
+            'products': GenericSitemap(products, priority=1.0),
+                }
 
 urlpatterns = patterns('',
 
@@ -19,6 +28,9 @@ urlpatterns = patterns('',
     
     # Robokassa integration...
     (r'^checkout/robokassa/', include('robokassa.urls')),
+
+    # sitemap.xml
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
     # Uncomment the admin/doc line below to enable admin documentation:
         url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
